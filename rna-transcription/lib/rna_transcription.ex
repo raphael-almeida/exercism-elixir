@@ -11,6 +11,6 @@ defmodule RnaTranscription do
   def to_rna(dna) do
     dna_rna_map = %{?A => ?U, ?C => ?G, ?T => ?A, ?G => ?C}
 
-    Enum.map(dna, fn x -> dna_rna_map[x] end)
+    Enum.map(dna, &dna_rna_map[&1])
   end
 end

@@ -8,15 +8,17 @@ defmodule WordCount do
   def count(sentence) do
     String.replace(sentence, [":", "!", "!", "&", "@", "$", "%", "^", "&", ","], "")
     |> String.split([" ", "_"])
-    |> Enum.reject(fn word -> word == "" end)
-    |> Enum.map(fn word -> String.downcase(word) end)
-    |> Enum.reduce(%{}, fn word, map ->
-      if Map.has_key?(map, word) do
-        count = Map.get(map, word)
-        Map.put(map, word, count + 1)
-      else
-        Map.put(map, word, 1)
-      end
-    end)
+    |> Enum.reject(&(&1 == ""))
+    |> Enum.map(&String.downcase(&1))
+    |> Enum.reduce(%{}, &add_to_map(&2, &1))
+  end
+
+  defp add_to_map(map, word) when is_map_key(map, word) do
+    count = Map.get(map, word)
+    Map.put(map, word, count + 1)
+  end
+
+  defp add_to_map(map, word) when is_map_key(map, word) == false do
+    Map.put(map, word, 1)
   end
 end

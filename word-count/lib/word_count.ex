@@ -7,9 +7,9 @@ defmodule WordCount do
   @spec count(String.t()) :: map
   def count(sentence) do
     String.replace(sentence, [":", "!", "!", "&", "@", "$", "%", "^", "&", ","], "")
+    |> String.downcase()
     |> String.split([" ", "_"])
     |> Enum.reject(&(&1 == ""))
-    |> Enum.map(&String.downcase(&1))
     |> Enum.reduce(%{}, &add_to_map(&2, &1))
   end
 
@@ -18,7 +18,7 @@ defmodule WordCount do
     Map.put(map, word, count + 1)
   end
 
-  defp add_to_map(map, word) when is_map_key(map, word) == false do
+  defp add_to_map(map, word) do
     Map.put(map, word, 1)
   end
 end

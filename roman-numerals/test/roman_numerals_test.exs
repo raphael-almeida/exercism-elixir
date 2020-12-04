@@ -21,7 +21,7 @@ defmodule RomanNumeralsTest do
     assert RomanNumerals.numeral(4) == "IV"
   end
 
-  @tag :pending
+  # @tag :pending
   test "5" do
     assert RomanNumerals.numeral(5) == "V"
   end
